@@ -8,7 +8,7 @@ class Image_charge_calculator:
 
     ###################################################################################################################################################
 
-    def __init__(self, q_ct, z_ct, y_ct, x_ct, ep_qw, ep_sige, ep_ox, t_sige, t_ox, r):
+    def __init__(self, q_ct, z_ct, y_ct, x_ct, ep_qw, ep_sige, ep_ox, t_sige, t_ox, r=1e-4):
         
         self.q_ct = q_ct  # Initial charge q_1i
         self.z_ct = z_ct # position of initial charge q 
@@ -174,7 +174,6 @@ class Charge_in_medium3(Image_charge_calculator):
 
             pot = pot+ image_chrg[0]/ math.sqrt((z-image_chrg[1])**2+(y-self.y_ct)**2+ (x-self.x_ct)**2)
 
-
         return k0/self.ep3*pot
     
     def calc_ele_medium1(self, x, y, z):
@@ -187,9 +186,9 @@ class Charge_in_medium3(Image_charge_calculator):
 
             ele[0] = ele[0]+ ic[0]*(z-ic[1])/denom
 
-            ele[1] = ele[1]+ ic[0]*(y)/denom
+            ele[1] = ele[1]+ ic[0]*(y-self.y_ct)/denom
 
-            ele[2] = ele[2]+ ic[0]*(x)/denom
+            ele[2] = ele[2]+ ic[0]*(x-self.x_ct)/denom
 
         return k0/self.ep1*ele
     
@@ -203,9 +202,9 @@ class Charge_in_medium3(Image_charge_calculator):
 
             ele[0] = ele[0]+ ic[0]*(z-ic[1])/denom
 
-            ele[1] = ele[1]+ ic[0]*(y)/denom
+            ele[1] = ele[1]+ ic[0]*(y-self.y_ct)/denom
 
-            ele[2] = ele[2]+ ic[0]*(x)/denom
+            ele[2] = ele[2]+ ic[0]*(x-self.x_ct)/denom
 
         for ic in self.image_charges_q2s:
 
@@ -213,9 +212,9 @@ class Charge_in_medium3(Image_charge_calculator):
 
             ele[0] = ele[0]+ ic[0]*(z-ic[1])/denom
 
-            ele[1] = ele[1]+ ic[0]*(y)/denom
+            ele[1] = ele[1]+ ic[0]*(y-self.y_ct)/denom
 
-            ele[2] = ele[2]+ ic[0]*(x)/denom
+            ele[2] = ele[2]+ ic[0]*(x-self.x_ct)/denom
 
         return k0/self.ep2*ele
     
@@ -229,9 +228,9 @@ class Charge_in_medium3(Image_charge_calculator):
 
             ele[0] = ele[0]+ ic[0]*(z-ic[1])/denom
 
-            ele[1] = ele[1]+ ic[0]*(y)/denom
+            ele[1] = ele[1]+ ic[0]*(y-self.y_ct)/denom
 
-            ele[2] = ele[2]+ ic[0]*(x)/denom
+            ele[2] = ele[2]+ ic[0]*(x-self.x_ct)/denom
 
         for ic in self.image_charges_q4s:
 
@@ -239,9 +238,9 @@ class Charge_in_medium3(Image_charge_calculator):
 
             ele[0] = ele[0]+ ic[0]*(z-ic[1])/denom
 
-            ele[1] = ele[1]+ ic[0]*(y)/denom
+            ele[1] = ele[1]+ ic[0]*(y-self.y_ct)/denom
 
-            ele[2] = ele[2]+ ic[0]*(x)/denom
+            ele[2] = ele[2]+ ic[0]*(x-self.x_ct)/denom
 
         return k0/self.ep3*ele
 
@@ -249,14 +248,15 @@ class Charge_in_medium3(Image_charge_calculator):
 
 
 def main():
-    Q_CT = 1e-12 ### 1pC in C
+    Q_CT = ee ### 1pC in C
+    print(" q   =", Q_CT)
 
-    Z_CT = 1e-2 #### cm 
-    X_CT = 2E-2 #### cm
-    Y_CT = 3E-2 #### cm  
+    Z_CT = 1e1 #### in nm 
+    X_CT = 2e1 #### in nm
+    Y_CT = 3E1 #### in nm
 
-    C = 2e-2 
-    B = 1e-2 
+    C = 2e1
+    B = 1e1 
 
     EP3 = 1.7
     EP2 = 4
@@ -268,9 +268,9 @@ def main():
 
     print(Img_chrgs)
 
-    Z = 3E-2
-    Y = 1e-2
-    X = 1e-2
+    Z = 3E1
+    Y = 1e1
+    X = 1e1
 
 
     V_in_medium1 = het.calc_potential_medium1(X, Y, Z)
@@ -279,11 +279,11 @@ def main():
     E_med2 = het.calc_ele_medium2(X, Y, Z)
 
     print(V_in_medium1, V_in_medium2)
-    print(E_med1*np.array((EP1,1,1)), E_med2*np.array((EP2,1,1)))
+    print(E_med1*np.array((EP1,1,1)), '\n',E_med2*np.array((EP2,1,1)))
 
-    Z = 3E-2
-    Y = 3e-2
-    X = 2e-2
+    Z = 3E1
+    Y = 3e1
+    X = 2e1
 
 
     V_in_medium1 = het.calc_potential_medium1(X, Y, Z)
@@ -292,9 +292,9 @@ def main():
     E_med2 = het.calc_ele_medium2(X, Y, Z)
 
     print(V_in_medium1, V_in_medium2)
-    print(E_med1*np.array((EP1,1,1)), E_med2*np.array((EP2,1,1)))
+    print(E_med1*np.array((EP1,1,1)),'\n', E_med2*np.array((EP2,1,1)))
 
-    Z = 3E-2
+    Z = 3E1
     Y = 0
     X = 0
 
@@ -305,25 +305,12 @@ def main():
     E_med2 = het.calc_ele_medium2(X, Y, Z)
 
     print(V_in_medium1, V_in_medium2)
-    print(E_med1*np.array((EP1,1,1)), E_med2*np.array((EP2,1,1)))
+    print(E_med1*np.array((EP1,1,1)),'\n', E_med2*np.array((EP2,1,1)))
 
 
-    Z = 2E-2
-    Y = 0e-2
-    X = 0e-2
-
-
-    V_in_medium3 = het.calc_potential_medium3(X, Y, Z)
-    V_in_medium2 = het.calc_potential_medium2(X, Y, Z)
-    E_med3 = het.calc_ele_medium3(X, Y, Z)
-    E_med2 = het.calc_ele_medium2(X, Y, Z)
-
-    print(V_in_medium3, V_in_medium2)
-    print(E_med3*np.array((EP3,1,1)), E_med2*np.array((EP2,1,1)))
-
-    Z = 2E-2
-    Y = 3e-2
-    X = 3e-2
+    Z = 2E1
+    Y = 0e1
+    X = 0e1
 
 
     V_in_medium3 = het.calc_potential_medium3(X, Y, Z)
@@ -332,12 +319,11 @@ def main():
     E_med2 = het.calc_ele_medium2(X, Y, Z)
 
     print(V_in_medium3, V_in_medium2)
-    print(E_med3*np.array((EP3,1,1)), E_med2*np.array((EP2,1,1)))
+    print(E_med3*np.array((EP3,1,1)), '\n', E_med2*np.array((EP2,1,1)))
 
-
-    Z = 2E-2
-    Y = 1e-2
-    X = 2e-2
+    Z = 2E1
+    Y = 3e1
+    X = 3e1
 
 
     V_in_medium3 = het.calc_potential_medium3(X, Y, Z)
@@ -346,7 +332,21 @@ def main():
     E_med2 = het.calc_ele_medium2(X, Y, Z)
 
     print(V_in_medium3, V_in_medium2)
-    print(E_med3*np.array((EP3,1,1)), E_med2*np.array((EP2,1,1)))
+    print(E_med3*np.array((EP3,1,1)), '\n', E_med2*np.array((EP2,1,1)))
+
+
+    Z = 2E1
+    Y = 1e1
+    X = 2e1
+
+
+    V_in_medium3 = het.calc_potential_medium3(X, Y, Z)
+    V_in_medium2 = het.calc_potential_medium2(X, Y, Z)
+    E_med3 = het.calc_ele_medium3(X, Y, Z)
+    E_med2 = het.calc_ele_medium2(X, Y, Z)
+
+    print(V_in_medium3, V_in_medium2)
+    print(E_med3*np.array((EP3,1,1)), '\n', E_med2*np.array((EP2,1,1)))
 
 if __name__ == "__main__":
     main()
