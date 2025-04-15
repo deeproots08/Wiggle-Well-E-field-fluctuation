@@ -7,10 +7,8 @@ def main():
 
     ### consider charge trap at a distance R_CT
 
-    R_CT = np.linspace(-200,200,201)
+    R_CT = np.linspace(-100,100,201)
 
-    V_in_medium1_a = np.empty_like(R_CT)
-    V_in_medium1_b = np.empty_like(R_CT)
     E_med1_a = np.empty((R_CT.shape[0],3))
     E_med1_b = np.empty((R_CT.shape[0],3))
 
@@ -43,27 +41,12 @@ def main():
 
         #heta = Charge_in_medium3(ee, Z_CT, Y_CT, X_CT, EP_QW, EP_SIGE, EP_OX, T_SIGE, T_OX, 1e-6)
         heta = Charge_in_medium3(-ee, Z_CT, Y_CT, R_CT[i], EP_QW, EP_SIGE, EP_OX, T_SIGE, T_OX, 1e-6)
-
         img_chrgs = heta.calc_image_charges() 
-
-        #print(img_chrgs)
-
-
-        V_in_medium1_a[i] = heta.calc_potential_medium1(X, Y, Z)   ### qw
         E_med1_a[i,:] = heta.calc_ele_medium1(X, Y, Z)               ### qw
 
-        #print(V_in_medium1_a, "in mV", E_med1_a , "in mV/nm")
-        #print(V_in_medium2, "in mV", E_med2 , "in mV/nm")
 
-
-        #hetb = Charge_in_medium3(ee, Z_CT, Y_CT, X_CT, EP_QW, EP_SIGE, EP_OX, T_SIGE, T_OX, 1e-6)
         hetb = Charge_in_medium3(-ee, Z_CT, Y_CT+0.1, R_CT[i], EP_QW, EP_SIGE, EP_OX, T_SIGE, T_OX, 1e-6)
-
         img_chrgs = hetb.calc_image_charges() 
-
-        #print(img_chrgs)
-
-        V_in_medium1_b[i] = hetb.calc_potential_medium1(X, Y, Z)   ### qw 
         E_med1_b[i,:] = hetb.calc_ele_medium1(X, Y, Z)               ### qw 
 
         if i%20 ==0:
@@ -98,8 +81,8 @@ def main():
     ratio = np.divide(E_med1_a[:,2]-E_med1_b[:,2], E_med1_a[:,0]-E_med1_b[:,0], dtype=np.float64)  # Ensures precision
 
     ax.scatter(R_CT, ratio, alpha=0.7)  # Scatter plot
-    ax.set_title('del EX/ del EZ, EY=0')
-    ax.set_xlabel('R_CT')
+    ax.set_title('del EX/ del EZ, EY=0 transverse disp 1A')
+    ax.set_xlabel('X_CT')
 
     ax.set_ylim(ymin=-50, ymax=50)
 
@@ -115,7 +98,7 @@ def main():
     ax.scatter(R_CT, E_med1_a[:,2], alpha=0.7, color='red')  # Scatter plot
     ax.scatter(R_CT, E_med1_a[:,1], alpha=0.7, color='black')
     ax.set_title('Ez,EX,EY')
-    ax.set_xlabel('R_CT')
+    ax.set_xlabel('X_CT')
 
     #ax.set_ylim(ymin=-50, ymax=50)
 
@@ -128,8 +111,8 @@ def main():
     ratio2 = np.divide(E_med1_a[:,0]-E_med1_b[:,0], E_med1_a[:,2]-E_med1_b[:,2],  out=np.zeros_like(E_med1_a[:,0]), where=E_med1_a[:,2]!=0, dtype=np.float64)  # Ensures precision
 
     ax.scatter(R_CT, ratio2, alpha=0.7)  # Scatter plot
-    ax.set_title('del EZ/ del EX, EY=0')
-    ax.set_xlabel('R_CT')
+    ax.set_title('del EZ/ del EX, EY=0 transverse disp 1A')
+    ax.set_xlabel('X_CT')
 
     ax.set_ylim(ymin=-50, ymax=50)
 
