@@ -1,0 +1,3 @@
+->Image_charge_3d.py is the main python script that finds images based on different boundary conditions of the dielectric layer
+->Sheet_of_charge_v2.ipynb and Sheet_of_charge_v3.ipynb are useful in checking if the generated images charges make sense or not, as we match it to a known result of potential due to charge sheet 
+->E_field_check2.py and E_field_check.py Compares with teh known analytical dipole results to check if the function calculating electric field is correct or not 
