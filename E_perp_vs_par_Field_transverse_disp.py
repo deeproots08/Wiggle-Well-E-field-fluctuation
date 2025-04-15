@@ -84,7 +84,7 @@ def main():
     ax.set_title('del EX/ del EZ, EY=0 transverse disp 1A')
     ax.set_xlabel('X_CT')
 
-    ax.set_ylim(ymin=-50, ymax=50)
+    #ax.set_ylim(ymin=-50, ymax=50)
 
     plt.tight_layout()  # Adjust spacing
     plt.show()

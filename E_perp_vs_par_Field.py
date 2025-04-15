@@ -110,13 +110,15 @@ def main():
     # Create subplots
     fig, ax = plt.subplots(1, 1, figsize=(4, 4))  # 1 row, 1 columns
 
+    plt.rcParams.update({'font.size': 16}) # Increase overall font size
+
     ratio = np.divide(E_med1_a[:,2]-E_med1_b[:,2], E_med1_a[:,0]-E_med1_b[:,0], dtype=np.float64)  # Ensures precision
 
     ax.scatter(R_CT, ratio, alpha=0.7)  # Scatter plot
     ax.set_title('del EX/ del EZ, EY=0, longitudinal disp 1A')
     ax.set_xlabel('X_CT')
 
-    ax.set_ylim(ymin=-50, ymax=50)
+    ax.set_ylim(ymin=-20, ymax=20)
 
     plt.tight_layout()  # Adjust spacing
     plt.show()
@@ -130,7 +132,7 @@ def main():
     ax.set_title('del EZ/ del EX, EY=0, longitudinal disp 1A')
     ax.set_xlabel('X_CT')
 
-    ax.set_ylim(ymin=-50, ymax=50)
+    ax.set_ylim(ymin=-30, ymax=30)
 
     plt.tight_layout()  # Adjust spacing
     plt.show()
