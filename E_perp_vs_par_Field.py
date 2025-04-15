@@ -9,8 +9,6 @@ def main():
 
     R_CT = np.linspace(-100,100,201)
 
-    V_in_medium1_a = np.empty_like(R_CT)
-    V_in_medium1_b = np.empty_like(R_CT)
     E_med1_a = np.empty((R_CT.shape[0],3))
     E_med1_b = np.empty((R_CT.shape[0],3))
 
@@ -49,35 +47,17 @@ def main():
 
         #heta = Charge_in_medium3(ee, Z_CT, Y_CT, X_CT, EP_QW, EP_SIGE, EP_OX, T_SIGE, T_OX, 1e-6)
         heta = Charge_in_medium3(-ee, Z_CT, Y_CT, R_CT[i], EP_QW, EP_SIGE, EP_OX, T_SIGE, T_OX, 1e-6)
-
         img_chrgs = heta.calc_image_charges() 
-
-        #print(img_chrgs)
-
-
-        V_in_medium1_a[i] = heta.calc_potential_medium1(X, Y, Z)   ### qw
         E_med1_a[i,:] = heta.calc_ele_medium1(X, Y, Z)               ### qw
 
-        #print(V_in_medium1_a, "in mV", E_med1_a , "in mV/nm")
-        #print(V_in_medium2, "in mV", E_med2 , "in mV/nm")
 
-
-        #hetb = Charge_in_medium3(ee, Z_CT, Y_CT, X_CT, EP_QW, EP_SIGE, EP_OX, T_SIGE, T_OX, 1e-6)
         hetb = Charge_in_medium3(-ee, Z_CT, Y_CT, R_CT[i]+0.1, EP_QW, EP_SIGE, EP_OX, T_SIGE, T_OX, 1e-6)
-
         img_chrgs = hetb.calc_image_charges() 
-
-        #print(img_chrgs)
-
-        V_in_medium1_b[i] = hetb.calc_potential_medium1(X, Y, Z)   ### qw 
         E_med1_b[i,:] = hetb.calc_ele_medium1(X, Y, Z)               ### qw 
 
         if i%20 ==0:
             print(i)
             print(img_chrgs)
-        #print(V_in_medium1_b, "in mV", E_med1_b , "in mV/nm")
-        #print(V_in_medium2, "in mV", E_med2 , "in mV/nm")
-
 
     # Create subplots
     fig, axes = plt.subplots(1, 3, figsize=(12, 4), sharey=True)  # 3 row, 1 columns
@@ -101,11 +81,40 @@ def main():
     # Create subplots
     fig, ax = plt.subplots(1, 1, figsize=(4, 4))  # 1 row, 1 columns
 
+    ratio = np.divide(E_med1_a[:,2], E_med1_a[:,0], dtype=np.float64)  # Ensures precision
+
+    ax.scatter(R_CT, ratio, alpha=0.7)  # Scatter plot
+    ax.set_title('EX/EZ, EY=0')
+    ax.set_xlabel('X_CT')
+
+    #ax.set_ylim(ymin=-50, ymax=50)
+
+    plt.tight_layout()  # Adjust spacing
+    plt.show()
+
+
+    # Create subplots
+    fig, ax = plt.subplots(1, 1, figsize=(4, 4))  # 1 row, 1 columns
+
+    ratio = np.divide(E_med1_a[:,0], E_med1_a[:,2], dtype=np.float64, out=np.zeros_like(E_med1_a[:,2]), where=(E_med1_a[:,2])!=0)  # Ensures precision
+
+    ax.scatter(R_CT, ratio, alpha=0.7)  # Scatter plot
+    ax.set_title('EZ/EX, EY=0')
+    ax.set_xlabel('X_CT')
+
+    #ax.set_ylim(ymin=-50, ymax=50)
+
+    plt.tight_layout()  # Adjust spacing
+    plt.show()
+
+    # Create subplots
+    fig, ax = plt.subplots(1, 1, figsize=(4, 4))  # 1 row, 1 columns
+
     ratio = np.divide(E_med1_a[:,2]-E_med1_b[:,2], E_med1_a[:,0]-E_med1_b[:,0], dtype=np.float64)  # Ensures precision
 
     ax.scatter(R_CT, ratio, alpha=0.7)  # Scatter plot
-    ax.set_title('del EX/ del EZ, EY=0')
-    ax.set_xlabel('R_CT')
+    ax.set_title('del EX/ del EZ, EY=0, longitudinal disp 1A')
+    ax.set_xlabel('X_CT')
 
     ax.set_ylim(ymin=-50, ymax=50)
 
@@ -115,11 +124,11 @@ def main():
     # Create subplots
     fig, ax = plt.subplots(1, 1, figsize=(4, 4))  # 1 row, 1 columns
 
-    ratio2 = np.divide(E_med1_a[:,0]-E_med1_b[:,0], E_med1_a[:,2]-E_med1_b[:,2],  out=np.zeros_like(E_med1_a[:,0]), where=E_med1_a[:,2]!=0, dtype=np.float64)  # Ensures precision
+    ratio2 = np.divide(E_med1_a[:,0]-E_med1_b[:,0], E_med1_a[:,2]-E_med1_b[:,2],  out=np.zeros_like(E_med1_a[:,0]), where=(E_med1_a[:,2])!=0, dtype=np.float64)  # Ensures precision
 
     ax.scatter(R_CT, ratio2, alpha=0.7)  # Scatter plot
-    ax.set_title('del EZ/ del EX, EY=0')
-    ax.set_xlabel('R_CT')
+    ax.set_title('del EZ/ del EX, EY=0, longitudinal disp 1A')
+    ax.set_xlabel('X_CT')
 
     ax.set_ylim(ymin=-50, ymax=50)
 
