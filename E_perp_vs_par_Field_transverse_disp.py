@@ -86,7 +86,10 @@ def main():
     #ax.set_xlabel('X_CT')
 
     #ax.set_ylim(ymin=-50, ymax=50)
-
+    ax.set_xlim(xmin=R_CT[0], xmax=R_CT[-1])
+    ax.set_ylim(ymin=ratio[-1], ymax=ratio[0])
+    XTICKS = [-25,-20,-25,-15,-10,-5,0, 5, 10, 15, 20, 25]
+    ax.set_xticks(XTICKS)
     plt.tight_layout()  # Adjust spacing
     plt.show()
 

@@ -106,7 +106,7 @@ def main():
 
     plt.tight_layout()  # Adjust spacing
     plt.show()
-    '''
+    
     # Create subplots
     fig, ax = plt.subplots(1, 1, figsize=(4, 4))  # 1 row, 1 columns
 
@@ -118,12 +118,13 @@ def main():
     ax.set_title('del EX/ del EZ, EY=0, longitudinal disp 1A')
     ax.set_xlabel('X_CT')
 
-    ax.set_ylim(ymin=-20, ymax=20)
+    ax.set_ylim(ymin=-2, ymax=2)
+    plt.xlim(-20,20)
 
     plt.tight_layout()  # Adjust spacing
     plt.show()
     
-
+    '''
     # Create subplots
     fig, ax = plt.subplots(1, 1, figsize=(4, 4))  # 1 row, 1 columns
 
@@ -133,8 +134,10 @@ def main():
     #ax.set_title('del EZ/ del EX, EY=0, longitudinal disp 1A')
     #ax.set_xlabel(r'coordinate of charge trap, $R_{CT}$')
 
-    ax.set_ylim(ymin=-3, ymax=3)
-
+    ax.set_ylim(ymin=np.min(ratio2), ymax=np.max(ratio2))
+    ax.set_xlim(xmin=R_CT[0], xmax=R_CT[-1])
+    XTICKS = [-25,-20,-25,-15,-10,-5,0, 5, 10, 15, 20, 25]
+    ax.set_xticks(XTICKS)
     plt.tight_layout()  # Adjust spacing
     plt.show()
 
