@@ -7,7 +7,7 @@ def main():
 
     ### consider charge trap at a distance R_CT
 
-    R_CT = np.linspace(-100,100,201)
+    R_CT = np.linspace(-25,25,201)
 
     E_med1_a = np.empty((R_CT.shape[0],3))
     E_med1_b = np.empty((R_CT.shape[0],3))
@@ -17,7 +17,7 @@ def main():
     T_QW = 9   ### IN NM  ##irrelevnt
 
     EP_QW = 11.7
-    EP_SIGE = 13
+    EP_SIGE = 12.75
     EP_OX = 3.9 ## SiO2 
 
     # EP_QW = 11
@@ -36,16 +36,14 @@ def main():
     Z_CT = 5 ## in nm  ### at the oxide interface
 
 
-    het = Charge_in_medium3(ee, Z_CT, Y_CT, x_ct=10, ep_qw=EP_QW, ep_sige=EP_SIGE, ep_ox=EP_OX, t_sige=T_SIGE, t_ox=T_OX, r=1e-4)
+    #het = Charge_in_medium3(ee, Z_CT, Y_CT, x_ct=10, ep_qw=EP_QW, ep_sige=EP_SIGE, ep_ox=EP_OX, t_sige=T_SIGE, t_ox=T_OX, r=1e-4)
 
-    img_chrgs = het.calc_image_charges() 
+    #img_chrgs = het.calc_image_charges() 
 
-    print(img_chrgs)
+    #print(img_chrgs)
 
     for i in range(R_CT.shape[0]):
         ### Assume that R is in X direction , Y is zero. direction doesn't matter
-
-        #heta = Charge_in_medium3(ee, Z_CT, Y_CT, X_CT, EP_QW, EP_SIGE, EP_OX, T_SIGE, T_OX, 1e-6)
         heta = Charge_in_medium3(-ee, Z_CT, Y_CT, R_CT[i], EP_QW, EP_SIGE, EP_OX, T_SIGE, T_OX, 1e-6)
         img_chrgs = heta.calc_image_charges() 
         E_med1_a[i,:] = heta.calc_ele_medium1(X, Y, Z)               ### qw
@@ -58,6 +56,8 @@ def main():
         if i%20 ==0:
             print(i)
             print(img_chrgs)
+
+    '''
 
     # Create subplots
     fig, axes = plt.subplots(1, 3, figsize=(12, 4), sharey=True)  # 3 row, 1 columns
@@ -92,7 +92,7 @@ def main():
     plt.tight_layout()  # Adjust spacing
     plt.show()
 
-
+    
     # Create subplots
     fig, ax = plt.subplots(1, 1, figsize=(4, 4))  # 1 row, 1 columns
 
@@ -106,7 +106,7 @@ def main():
 
     plt.tight_layout()  # Adjust spacing
     plt.show()
-
+    '''
     # Create subplots
     fig, ax = plt.subplots(1, 1, figsize=(4, 4))  # 1 row, 1 columns
 
@@ -122,6 +122,7 @@ def main():
 
     plt.tight_layout()  # Adjust spacing
     plt.show()
+    
 
     # Create subplots
     fig, ax = plt.subplots(1, 1, figsize=(4, 4))  # 1 row, 1 columns
@@ -129,10 +130,10 @@ def main():
     ratio2 = np.divide(E_med1_a[:,0]-E_med1_b[:,0], E_med1_a[:,2]-E_med1_b[:,2],  out=np.zeros_like(E_med1_a[:,0]), where=(E_med1_a[:,2])!=0, dtype=np.float64)  # Ensures precision
 
     ax.scatter(R_CT, ratio2, alpha=0.7)  # Scatter plot
-    ax.set_title('del EZ/ del EX, EY=0, longitudinal disp 1A')
-    ax.set_xlabel('X_CT')
+    #ax.set_title('del EZ/ del EX, EY=0, longitudinal disp 1A')
+    #ax.set_xlabel(r'coordinate of charge trap, $R_{CT}$')
 
-    ax.set_ylim(ymin=-30, ymax=30)
+    ax.set_ylim(ymin=-3, ymax=3)
 
     plt.tight_layout()  # Adjust spacing
     plt.show()
