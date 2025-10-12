@@ -137,11 +137,10 @@ def main():
     ax.set_ylim(ymin=np.min(ratio2), ymax=np.max(ratio2))
     ax.set_xlim(xmin=R_CT[0], xmax=R_CT[-1])
     XTICKS = [-25,-20,-25,-15,-10,-5,0, 5, 10, 15, 20, 25]
+    YTICKS = [-3, -2, -2, 0, 1, 2, 3]
     ax.set_xticks(XTICKS)
-    ax.tick_params(axis='both', which='major', labelsize=14)  # Increase tick label size
-
     # --- Increase tick line width and tick label size ---
-    ax.tick_params(axis='both', which='both', width=2, length=6, labelsize=14)
+    ax.tick_params(axis='both', which='both', width=2, length=6, labelsize=10)
 
     # --- Add black border (axes spines) ---
     for spine in ax.spines.values():
