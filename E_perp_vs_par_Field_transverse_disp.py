@@ -91,7 +91,7 @@ def main():
     XTICKS = [-25,-20,-25,-15,-10,-5,0, 5, 10, 15, 20, 25]
     ax.set_xticks(XTICKS)
     # --- Increase tick line width and tick label size ---
-    ax.tick_params(axis='both', which='both', width=2, length=6, labelsize=10)
+    ax.tick_params(axis='both', which='both', width=2, length=6, labelsize=12)
 
     # --- Add black border (axes spines) ---
     for spine in ax.spines.values():
