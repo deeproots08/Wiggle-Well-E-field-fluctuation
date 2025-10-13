@@ -140,7 +140,7 @@ def main():
     YTICKS = [-3, -2, -2, 0, 1, 2, 3]
     ax.set_xticks(XTICKS)
     # --- Increase tick line width and tick label size ---
-    ax.tick_params(axis='both', which='both', width=2, length=6, labelsize=12)
+    ax.tick_params(axis='both', which='both', width=2, length=6, labelsize=10)
 
     # --- Add black border (axes spines) ---
     for spine in ax.spines.values():
@@ -148,7 +148,9 @@ def main():
         spine.set_color('black')
 
     plt.tight_layout()  # Adjust spacing
-    plt.show()
+    plt.savefig("manuscript_delEz_by_delEx_long.png", dpi=300, bbox_inches='tight')
+    plt.show()  # Still view in GUI
+
 
     print(E_med1_a[:,1])
 
