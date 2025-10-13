@@ -97,6 +97,7 @@ def main():
     fig_height = inner_height + bottom_margin + top_margin
 
     fig, ax = plt.subplots(figsize=(fig_width, fig_height), constrained_layout=False)
+    fig.set_tight_layout(False)
 
     # --- Adjust axes box ---
     fig.subplots_adjust(
@@ -124,7 +125,7 @@ def main():
     for spine in ax.spines.values():
         spine.set_linewidth(1)
         spine.set_color('black')
-    plt.tight_layout()  # Adjust spacing
+        
     plt.savefig("manuscript_delEx_by_delEz_trnsv.png", dpi=300, bbox_inches='tight')
     plt.show()  # Still view in GUI
 
