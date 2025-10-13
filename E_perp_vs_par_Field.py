@@ -126,7 +126,33 @@ def main():
     
     '''
     # Create subplots
-    fig, ax = plt.subplots(1, 1, figsize=(4, 4))  # 1 row, 1 columns
+    #fig, ax = plt.subplots(1, 1, figsize=(4, 4))  # 1 row, 1 columns
+
+    from matplotlib.transforms import Bbox
+
+    # --- Define target inner box size (in inches) ---
+    inner_width = 3.4     # PRB one-column box width
+    inner_height = 2.55
+
+    # --- Compute total figure size with margins ---
+    # (these margins roughly account for labels/ticks)
+    left_margin = 0.6
+    bottom_margin = 0.5
+    right_margin = 0.1
+    top_margin = 0.2
+
+    fig_width = inner_width + left_margin + right_margin
+    fig_height = inner_height + bottom_margin + top_margin
+
+    fig, ax = plt.subplots(figsize=(fig_width, fig_height), constrained_layout=False)
+
+    # --- Adjust axes box ---
+    fig.subplots_adjust(
+        left=left_margin/fig_width,
+        right=1 - right_margin/fig_width,
+        bottom=bottom_margin/fig_height,
+        top=1 - top_margin/fig_height,
+    )
 
     ratio2 = np.divide(E_med1_a[:,0]-E_med1_b[:,0], E_med1_a[:,2]-E_med1_b[:,2],  out=np.zeros_like(E_med1_a[:,0]), where=(E_med1_a[:,2])!=0, dtype=np.float64)  # Ensures precision
 
