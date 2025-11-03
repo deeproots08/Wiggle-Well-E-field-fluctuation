@@ -116,7 +116,7 @@ def main():
     #ax.set_ylim(ymin=-50, ymax=50)
     ax.set_xlim(xmin=R_CT[0], xmax=R_CT[-1])
     ax.set_ylim(ymin=ratio[-1], ymax=ratio[0])
-    XTICKS = [-25,-20,-25,-15,-10,-5,0, 5, 10, 15, 20, 25]
+    XTICKS = [-25, -15, -5, 5,  15,  25]
     ax.set_xticks(XTICKS)
     # --- Increase tick line width and tick label size ---
     ax.tick_params(axis='both', which='both', width=2, length=6, labelsize=10)
