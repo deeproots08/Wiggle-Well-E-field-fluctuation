@@ -17,7 +17,7 @@ def main():
     T_QW = 9   ### IN NM  ##irrelevnt
 
     EP_QW = 11.7
-    EP_SIGE = 12.75
+    EP_SIGE = 13.1
     EP_OX = 3.9 ## SiO2 
 
     # EP_QW = 11
@@ -177,7 +177,8 @@ def main():
         spine.set_color('black')
 
 
-    plt.savefig("manuscript_delEz_by_delEx_long.png", dpi=300, bbox_inches='tight')
+    #plt.savefig("manuscript_delEz_by_delEx_long.png", dpi=300, bbox_inches='tight')
+    plt.savefig("manuscript_delEz_by_delEx_long_dielectric_cont_changed.png", dpi=300, bbox_inches='tight')
     plt.show()  # Still view in GUI
 
 
