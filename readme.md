@@ -32,4 +32,4 @@ This repository contains scripts and notebooks for modeling image charges under 
 
 ## Notes
 
-These scripts and notebooks together form a robust framework to ensure the accuracy of image charge generation and electric field computations in dielectric boundary problems.
+These scripts and notebooks together form a robust framework to ensure the accuracy of image charge generation and electric field computations in dielectric boundary problems. Here we use it to study the effect of a single charge trapped in oxide layer of semiconductor for quantum dot spin qubit simulation purposes. 
