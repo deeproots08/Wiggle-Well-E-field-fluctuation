@@ -23,6 +23,13 @@ This repository contains scripts and notebooks for modeling image charges under 
 - **E_field_check2.py**  
   An extended version of the electric field test script, providing additional verification across multiple dipole configurations and boundary conditions.
 
+## Main resultNotebooks
+
+- **E_perp_vs_par_Field**
+- **E_perp_vs_par_Field_transverse_disp**
+- **E_perp_vs_par_Field_z_disp**
+- **E_field_ct_fluctuation_1A_in_x_y_z**
+
 ## Notes
 
 These scripts and notebooks together form a robust framework to ensure the accuracy of image charge generation and electric field computations in dielectric boundary problems.
