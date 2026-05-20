@@ -158,6 +158,7 @@ def main():
         top=1 - top_margin/fig_height,
     )
 
+    ### Ez/Ex
     ratio2 = np.divide(E_med1_a[:,0]-E_med1_b[:,0], E_med1_a[:,2]-E_med1_b[:,2],  out=np.zeros_like(E_med1_a[:,0]), where=(E_med1_a[:,2])!=0, dtype=np.float64)  # Ensures precision
 
     ax.scatter(R_CT, ratio2, alpha=0.7)  # Scatter plot

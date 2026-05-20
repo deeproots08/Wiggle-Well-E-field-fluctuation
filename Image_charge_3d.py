@@ -121,6 +121,8 @@ class Image_charge_calculator:
  
 class Charge_in_medium3(Image_charge_calculator):
 
+    ### in potential and electric filed array that are returned, 0 index is z direction, and 2 index is x direction 
+
     def calc_image_charges(self):
 
         q40 = self.q_ct
