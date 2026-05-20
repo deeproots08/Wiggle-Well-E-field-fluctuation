@@ -45,7 +45,7 @@ def main():
         E_med1_a[i,:] = heta.calc_ele_medium1(X, Y, Z)               ### qw
 
 
-        hetb = Charge_in_medium3(-ee, Z_CT, Y_CT+0.1, R_CT[i], EP_QW, EP_SIGE, EP_OX, T_SIGE, T_OX, 1e-6)
+        hetb = Charge_in_medium3(-ee, Z_CT+0.1, Y_CT, R_CT[i], EP_QW, EP_SIGE, EP_OX, T_SIGE, T_OX, 1e-6)
         img_chrgs = hetb.calc_image_charges() 
         E_med1_b[i,:] = hetb.calc_ele_medium1(X, Y, Z)               ### qw 
 
@@ -84,8 +84,7 @@ def main():
 
     # --- Define target inner box size (in inches) ---
     inner_width = 3.4     # PRB one-column box width
-    #inner_height = 2.55
-    inner_height = 3.4 
+    inner_height = 2.55
 
     # --- Compute total figure size with margins ---
     # (these margins roughly account for labels/ticks)
@@ -108,6 +107,7 @@ def main():
         top=1 - top_margin/fig_height,
     )
 
+    #ratio = np.divide(E_med1_a[:,2]-E_med1_b[:,2], E_med1_a[:,0]-E_med1_b[:,0], dtype=np.float64)  # Ensures precision
     ratio = np.divide(E_med1_a[:,2]-E_med1_b[:,2], E_med1_a[:,0]-E_med1_b[:,0], dtype=np.float64)  # Ensures precision
 
     ax.scatter(R_CT, ratio, alpha=0.7)  # Scatter plot
@@ -115,10 +115,10 @@ def main():
     #ax.set_xlabel('X_CT')
 
     #ax.set_ylim(ymin=-50, ymax=50)
-    ax.set_xlim(xmin=R_CT[0], xmax=R_CT[-1])
-    ax.set_ylim(ymin=ratio[-1], ymax=ratio[0])
-    XTICKS = [-20, -10, 0, 10,  20]
-    ax.set_xticks(XTICKS)
+    #ax.set_xlim(xmin=R_CT[0], xmax=R_CT[-1])
+    #ax.set_ylim(ymin=ratio[-1], ymax=ratio[0])
+    #XTICKS = [-25, -15, -5, 5,  15,  25]
+    #ax.set_xticks(XTICKS)
     # --- Increase tick line width and tick label size ---
     ax.tick_params(axis='both', which='both', width=2, length=6, labelsize=16)
 
@@ -128,7 +128,7 @@ def main():
         spine.set_color('black')
         
     #plt.savefig("manuscript_delEx_by_delEz_trnsv.png", dpi=300, bbox_inches='tight')
-    plt.savefig("manuscript_delEx_by_delEz_trnsv_changed_dielectric_values_v2.png", dpi=300, bbox_inches='tight')
+    plt.savefig("manuscript_delEX_by_delEZ_z_disp_changed_dielectric_values.png", dpi=300, bbox_inches='tight')
     plt.show()  # Still view in GUI
 
     '''
