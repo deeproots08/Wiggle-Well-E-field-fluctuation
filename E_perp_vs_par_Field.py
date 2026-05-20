@@ -132,7 +132,8 @@ def main():
 
     # --- Define target inner box size (in inches) ---
     inner_width = 3.4     # PRB one-column box width
-    inner_height = 2.55
+    inner_height = 3.4
+    #inner_height = 2.55
 
     # --- Compute total figure size with margins ---
     # (these margins roughly account for labels/ticks)
@@ -165,7 +166,7 @@ def main():
 
     ax.set_ylim(ymin=np.min(ratio2), ymax=np.max(ratio2))
     ax.set_xlim(xmin=R_CT[0], xmax=R_CT[-1])
-    XTICKS = [-25, -15, -5, 5,  15, 25]
+    XTICKS = [-20, -10, 0, 10, 20]
     YTICKS = [-3, -2, -2, 0, 1, 2, 3]
     ax.set_xticks(XTICKS)
     # --- Increase tick line width and tick label size ---
@@ -178,7 +179,7 @@ def main():
 
 
     #plt.savefig("manuscript_delEz_by_delEx_long.png", dpi=300, bbox_inches='tight')
-    plt.savefig("manuscript_delEz_by_delEx_long_dielectric_cont_changed.png", dpi=300, bbox_inches='tight')
+    plt.savefig("manuscript_delEz_by_delEx_long_dielectric_cont_changed_v2.png", dpi=300, bbox_inches='tight')
     plt.show()  # Still view in GUI
 
 
