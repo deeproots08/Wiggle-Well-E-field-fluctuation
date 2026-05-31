@@ -70,7 +70,7 @@ def main():
 
     Q = -ee 
 
-    EP = 13
+    EP = 13.1
 
     X = 0
 
@@ -97,7 +97,7 @@ def main():
         het.calc_image_charges()
         Efield_ic[i,:] = het.calc_ele_medium1(X, Y, Z)  
 
-        het_dd = Charge_in_medium3(-ee, ZCT, YCT, XCT[i], ep_ox=3.9, ep_sige=13, ep_qw=11.7, t_sige=T_SIGE, t_ox=T_OX, r=1e-6)
+        het_dd = Charge_in_medium3(-ee, ZCT, YCT, XCT[i], ep_ox=3.9, ep_sige=13.1, ep_qw=11.7, t_sige=T_SIGE, t_ox=T_OX, r=1e-6)
         het_dd.calc_image_charges()
         Efield_dd[i,:] = het_dd.calc_ele_medium1(X, Y, Z)  
         
@@ -111,17 +111,17 @@ def main():
 
     #ratio2 = np.divide(E_med1_a[:,0]-E_med1_b[:,0], E_med1_a[:,2]-E_med1_b[:,2],  out=np.zeros_like(E_med1_a[:,0]), where=E_med1_a[:,2]!=0, dtype=np.float64)  # Ensures precision
 
-    ax.scatter(XCT, Efield[:,0], alpha=0.7, marker='o', facecolors='none', edgecolors='blue', label = 'EZ')  # Scatter plot
-    ax.scatter(XCT, Efield[:,2], alpha=0.7, marker='o', facecolors='none', edgecolors='red', label = 'EX')  # Scatter plot
-    ax.scatter(XCT, Efield[:,1], alpha=0.7, marker='o', facecolors='none', edgecolors='black', label = 'EY')
+    ax.scatter(XCT, Efield[:,0], alpha=0.7, marker='o', facecolors='none', edgecolors='blue', label = 'EZ dipole analytical')  # Scatter plot
+    ax.scatter(XCT, Efield[:,2], alpha=0.7, marker='o', facecolors='none', edgecolors='red', label = 'EX dipole analytical')  # Scatter plot
+    ax.scatter(XCT, Efield[:,1], alpha=0.7, marker='o', facecolors='none', edgecolors='black', label = 'EY dipole analytical')
 
-    ax.scatter(XCT, Efield_ic[:,0], alpha=0.4, color='blue', marker= "^", label = 'EZ 1ic')  # Scatter plot
-    ax.scatter(XCT, Efield_ic[:,2], alpha=0.4, color='red', marker= "^", label = 'EX 1ic')  # Scatter plot
-    ax.scatter(XCT, Efield_ic[:,1], alpha=0.4, color='black', marker= "^", label = 'EY 1ic')
+    ax.scatter(XCT, Efield_ic[:,0], alpha=0.4, color='blue', marker= "^", label = 'EZ 1 image charge')  # Scatter plot
+    ax.scatter(XCT, Efield_ic[:,2], alpha=0.4, color='red', marker= "^", label = 'EX 1 image charge')  # Scatter plot
+    ax.scatter(XCT, Efield_ic[:,1], alpha=0.4, color='black', marker= "^", label = 'EY 1 image charge')
 
-    ax.scatter(XCT, Efield_dd[:,0], alpha=0.7, color='blue', marker= "x", label = 'EZ dd')  # Scatter plot
-    ax.scatter(XCT, Efield_dd[:,2], alpha=0.7, color='red', marker= "x", label = 'EX dd')  # Scatter plot
-    ax.scatter(XCT, Efield_dd[:,1], alpha=0.7, color='black', marker= "x", label = 'EY dd')
+    ax.scatter(XCT, Efield_dd[:,0], alpha=0.7, color='blue', marker= "x", label = 'EZ multiple image charges')  # Scatter plot
+    ax.scatter(XCT, Efield_dd[:,2], alpha=0.7, color='red', marker= "x", label = 'EX multiple image charges')  # Scatter plot
+    ax.scatter(XCT, Efield_dd[:,1], alpha=0.7, color='black', marker= "x", label = 'EY multiple image charges')
 
     ax.set_title('EZ,EX,EY')
     ax.set_xlabel('XCT')
