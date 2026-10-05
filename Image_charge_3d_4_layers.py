@@ -182,7 +182,7 @@ class Charge_in_medium3(Image_charge_calculator):
         self.rule_iv(q40, z40, level + 1)
         self.rule_iv(q41, z41, level + 1)
 
-        return len(self.image_charges_q5s)
+        return len(self.image_charges_q7s)
     
     def calc_potential_medium1(self, x, y, z):
 
@@ -225,6 +225,16 @@ class Charge_in_medium3(Image_charge_calculator):
             pot = pot+ image_chrg[0]/ math.sqrt((z-image_chrg[1])**2+(y-self.y_ct)**2+ (x-self.x_ct)**2)
 
         return k0/self.ep3*pot
+
+    def calc_potential_medium0(self, x, y, z):
+    
+        pot=0 
+
+        for image_chrg in self.image_charges_q7s:
+
+            pot = pot+ image_chrg[0]/ math.sqrt((z-image_chrg[1])**2+(y-self.y_ct)**2+ (x-self.x_ct)**2)
+
+        return k0/self.ep0*pot
     
     def calc_ele_medium1(self, x, y, z):
 
@@ -304,6 +314,23 @@ class Charge_in_medium3(Image_charge_calculator):
 
         return k0/self.ep3*ele
 
+    def calc_ele_medium0(self, x, y, z):
+    
+        ele = np.zeros(3)
+
+        for ic in self.image_charges_q7s:
+
+            denom = ( (z-ic[1])**2 + (y-self.y_ct)**2 + (x-self.x_ct)**2 )**(3/2)
+
+            ele[0] = ele[0]+ ic[0]*(z-ic[1])/denom
+
+            ele[1] = ele[1]+ ic[0]*(y-self.y_ct)/denom
+
+            ele[2] = ele[2]+ ic[0]*(x-self.x_ct)/denom
+
+
+        return k0/self.ep0*ele
+
 
 
 
@@ -340,7 +367,7 @@ def main():
     E_med2 = het.calc_ele_medium2(X, Y, Z)
 
     print(V_in_medium1, V_in_medium2)
-    print(E_med1*np.array((EP1,1,1)), '\n',E_med2*np.array((EP2,1,1)))
+    print(E_med1*np.array((EP1,1,1)), '\n',E_med2*np.array((EP2,1,1))) ### FOR MATCHING B.C. IN Z REQUIRES MUltiplication by dielectric constant of each respective layer 
 
     Z = 3E1
     Y = 3e1
@@ -408,6 +435,46 @@ def main():
 
     print(V_in_medium3, V_in_medium2)
     print(E_med3*np.array((EP3,1,1)), '\n', E_med2*np.array((EP2,1,1)))
+
+    Z = 6E1
+    Y = 0e1
+    X = 0e1
+
+    EP0=EP2
+
+    V_in_medium0 = het.calc_potential_medium0(X, Y, Z)
+    V_in_medium1 = het.calc_potential_medium1(X, Y, Z)
+    E_med1 = het.calc_ele_medium1(X, Y, Z)
+    E_med0 = het.calc_ele_medium0(X, Y, Z)
+
+    print(V_in_medium1, V_in_medium0)
+    print(E_med1*np.array((EP1,1,1)), '\n', E_med0*np.array((EP0,1,1)))
+
+    Z = 6E1
+    Y = 3e1
+    X = 3e1
+
+
+    V_in_medium0 = het.calc_potential_medium0(X, Y, Z)
+    V_in_medium1 = het.calc_potential_medium1(X, Y, Z)
+    E_med1 = het.calc_ele_medium1(X, Y, Z)
+    E_med0 = het.calc_ele_medium0(X, Y, Z)
+
+    print(V_in_medium1, V_in_medium0)
+    print(E_med1*np.array((EP1,1,1)), '\n', E_med0*np.array((EP0,1,1)))
+
+    Z = 6E1
+    Y = 1e1
+    X = 2e1
+
+
+    V_in_medium0 = het.calc_potential_medium0(X, Y, Z)
+    V_in_medium1 = het.calc_potential_medium1(X, Y, Z)
+    E_med1 = het.calc_ele_medium1(X, Y, Z)
+    E_med0 = het.calc_ele_medium0(X, Y, Z)
+
+    print(V_in_medium1, V_in_medium0)
+    print(E_med1*np.array((EP1,1,1)), '\n', E_med0*np.array((EP0,1,1)))
 
 if __name__ == "__main__":
     main()
